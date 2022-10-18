@@ -31,3 +31,7 @@ body {
   opacity: 0.5;
   cursor: block;
 }
+
+.mdl-list__item {
+  overflow: initial;
+}
