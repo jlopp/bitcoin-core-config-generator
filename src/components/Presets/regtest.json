@@ -1,8 +1,10 @@
 {
   "debug": {
-	"debug": 1,
-	"logips": 1,
-	"logtimemicros": 1,
-	"regtest": 1
+		"debug": "1",
+		"logips": 1,
+		"logtimemicros": 1
+  },
+  "chain": {
+		"chain": "regtest"
   }
 }

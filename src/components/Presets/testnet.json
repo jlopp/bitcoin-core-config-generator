@@ -1,7 +1,9 @@
 {
   "debug": {
-	"debug": 1,
-	"logips": 1,
-	"testnet": 1
+		"debug": "1",
+		"logips": 1
+  },
+  "chain": {
+		"chain": "test"
   }
 }
