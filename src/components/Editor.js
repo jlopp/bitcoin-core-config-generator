@@ -89,6 +89,7 @@ class Editor extends Component {
           { this.select('debug', 'debugexclude') }
           { this.path('debug', 'debuglogfile', base, platform) }
           { this.flag('debug', 'logips') }
+          { this.text('debug', 'loglevel') }
           { this.flag('debug', 'logsourcelocations') }
           { this.flag('debug', 'logthreadnames') }
           { this.flag('debug', 'logtimestamps') }
@@ -163,6 +164,7 @@ class Editor extends Component {
           { this.number('relay', 'bytespersigop') }
           { this.flag('relay', 'datacarrier') }
           { this.number('relay', 'datacarriersize') }
+          { this.flag('relay', 'mempoolfullrbf') }
           { this.flag('relay', 'permitbaremultisig') }
           { this.decimal('relay', 'minrelaytxfee') }
           { this.flag('relay', 'whitelistrelay') }
@@ -172,6 +174,7 @@ class Editor extends Component {
           { this.flag('rpc', 'server') }
           { this.flag('rpc', 'rest') }
           { this.text('rpc', 'rpcbind') }
+          { this.flag('rpc', 'rpcdoccheck') }
           { this.path('rpc', 'rpccookiefile', base, platform) }
           { this.text('rpc', 'rpcauth') }
           { this.number('rpc', 'rpcport') }
@@ -209,6 +212,7 @@ class Editor extends Component {
           { this.flag('wallet', 'flushwallet') }
           { this.flag('wallet', 'privdb') }
           { this.flag('wallet', 'walletrejectlongchains') }
+          { this.flag('wallet', 'walletcrosschain') }
         </Section>
         <Section title={data.zeromq.section} description={data.zeromq.description}>
           { this.text('zeromq', 'zmqpubhashblock') }

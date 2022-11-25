@@ -451,6 +451,11 @@
       "description": "Log IP Addresses in debug output.",
       "default": 0
     },
+    "loglevel": {
+      "name": "Log Level",
+      "description": "Set the global or per-category severity level for logging in the format of either <level> or <category>:<level>. Level values may be: info, debug, or trace. Warning and error levels are always logged. If <category>:<level> is supplied, the setting will override the global one and may be specified multiple times. See 'debug' config for allowed category values.",
+      "default": ""
+    },
     "logsourcelocations": {
       "name": "Log Source Locations",
       "description": "Prepend debug output with name of the originating source location (source file, line number and function name).",
@@ -551,6 +556,11 @@
       "description": "Maximum size of data in OP_RETURN outputs we relay and mine.",
       "default": 83,
       "min": 1
+    },
+    "mempoolfullrbf": {
+      "name": "Mempool Full RBF",
+      "description": "Accept transaction replace-by-fee without requiring replaceability signaling.",
+      "default": 0
     },
     "permitbaremultisig": {
       "name": "Permit Bare Multisig",
@@ -836,6 +846,11 @@
       "description": "Bind to given address to listen for JSON-RPC connections. This option is ignored unless -rpcallowip is also passed. Port is optional and overrides -rpcport. Use [host]:port notation for IPv6. This option can be specified multiple times. (default: 127.0.0.1 and ::1 i.e., localhost)",
       "default": ""
     },
+    "rpcdoccheck": {
+      "name": "RPC Documentation Check",
+      "description": "Throw a non-fatal error at runtime if the documentation for an RPC is incorrect.",
+      "default": 0
+    },
     "rpccookiefile": {
       "name": "RPC Cookie Directory",
       "description": "Location of the RPC auth cookie",
@@ -1049,6 +1064,11 @@
       "name": "Reject Long Transaction Chains",
       "description": "Wallet will not create transactions that violate mempool chain limits.",
       "default": 1
+    },
+    "walletcrosschain": {
+      "name": "Wallet Cross Chain",
+      "description": "Allow reusing wallet files across chains.",
+      "default": 0
     }
   },
   "zeromq": {
