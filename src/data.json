@@ -220,15 +220,15 @@
       "description": "Specify path to dynamic settings data file. Can be disabled with -nosettings. File is written at runtime and not meant to be edited by users. Relative paths will be prefixed by datadir location.",
       "default": "settings.json"
     },
+    "shutdownnotify": {
+      "name": "Shutdown Notification",
+      "description": "Execute command immediately before beginning shutdown.",
+      "default": ""
+    },
     "startupnotify": {
       "name": "Startup Notification",
       "description": "Execute command on startup.",
       "default": ""
-    },
-    "sysperms": {
-      "name": "System File Permissions",
-      "description": "Create new files with system default permissions. Only effective if wallet is disabled.",
-      "default": 0
     },
     "txindex": {
       "name": "Index Transactions",
@@ -769,6 +769,11 @@
       "name": "Tor Control Password",
       "description": "Tor control port password.",
       "default": ""
+    },
+    "txreconciliation": {
+      "name": "Transaction Reconciliation",
+      "description": "Enable transaction reconciliations per BIP 330.",
+      "default": 0
     },
     "upnp": {
       "name": "Universal Plug 'n Play",

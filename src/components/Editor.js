@@ -63,8 +63,8 @@ class Editor extends Component {
           { this.flag('core', 'reindex') }
           { this.select('core', 'sandbox') }
           { this.text('core', 'settings') }
+          { this.text('core', 'shutdownnotify') }
           { this.text('core', 'startupnotify') }
-          { this.flag('core', 'sysperms') }
           { this.flag('core', 'txindex') }
         </Section>
         <Section title={data.debug.section} description={data.debug.description}>
@@ -152,6 +152,7 @@ class Editor extends Component {
           { this.number('network', 'timeout') }
           { this.text('network', 'torcontrol') }
           { this.text('network', 'torpassword') }
+          { this.flag('network', 'txreconciliation') }
           { this.flag('network', 'upnp') }
           { this.text('network', 'whitebind') }
           { this.text('network', 'whitelist') }
