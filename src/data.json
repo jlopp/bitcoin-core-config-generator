@@ -256,7 +256,7 @@
     },
     "checkblocks": {
       "name": "Check Blocks",
-      "description": "How many recent blocks to check at startup.",
+      "description": "How many recent blocks to check at startup. (0 == check all blocks which is very slow!)",
       "default": 6,
       "min": 0
     },
