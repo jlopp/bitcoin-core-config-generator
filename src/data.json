@@ -138,6 +138,11 @@
       "description": "Load additional configuration file, relative to the data directory.",
       "default": ""
     },
+    "allowignoredconf": {
+      "name": "Allow Ignored Config File",
+      "description": "For backwards compatibility, treat an unused bitcoin.conf file in the datadir as a warning, not an error.",
+      "default": 0
+    },
     "loadblock": {
       "name": "Import Blocks From File",
       "description": "Imports blocks from external blk000??.dat file on startup. This option can be set multiple times with different file values.",
@@ -201,20 +206,6 @@
       "description": "Rebuild chain state and block index from the blk*.dat files on disk. WARNING: very slow!",
       "default": 0
     },
-    "sandbox": {
-      "name": "Sandbox Mode",
-      "description": {
-        "0": "Do not use the experimental syscall sandbox.",
-        "abort": "Allow only expected syscalls to be used by bitcoind. The invocation of an unexpected syscall results in the entire process being killed immediately by the kernel without executing the unexpected syscall. Note that this is an experimental new feature that may cause bitcoind to exit or crash unexpectedly: use with caution.",
-        "log-and-abort": "Allow only expected syscalls to be used by bitcoind. The invocation of an unexpected syscall results in a debug handler being invoked which will log the incident and terminate the program (without executing the unexpected syscall.) Note that this is an experimental new feature that may cause bitcoind to exit or crash unexpectedly: use with caution."
-      },
-      "default": "0",
-      "values": [
-        "Disabled [0]",
-        "Abort [abort]",
-        "Log and Abort [log-and-abort]"
-      ]
-    },
     "settings": {
       "name": "Settings Data File",
       "description": "Specify path to dynamic settings data file. Can be disabled with -nosettings. File is written at runtime and not meant to be edited by users. Relative paths will be prefixed by datadir location.",
@@ -243,6 +234,11 @@
       "name": "User Agent Comment",
       "description": "Append comment to the user agent string.",
       "default": ""
+    },
+    "acceptstalefeeestimates": {
+      "name": "Accept Stale Fee Estimates",
+      "description": "Read fee estimates even if they are over 60 hours old. Regtest only.",
+      "default": 0
     },
     "addrmantest": {
       "name": "Address Manager Test",
@@ -717,6 +713,11 @@
         "IPV6 [ipv6]",
         "Tor [onion]"
       ]
+    },
+    "v2transport": {
+      "name": "Support v2 Transport",
+      "description": "Experimental support for the v2 transport protocol defined in BIP324.",
+      "default": 0
     },
     "peerblockfilters": {
       "name": "Permit Peer Block Filters",

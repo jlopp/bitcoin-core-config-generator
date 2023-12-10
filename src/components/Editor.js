@@ -49,6 +49,7 @@ class Editor extends Component {
           { this.number('core', 'dbbatchsize') }
           { this.number('core', 'dbcache') }
           { this.text('core', 'includeconf') }
+          { this.flag('core', 'allowignoredconf') }
           { this.text('core', 'loadblock') }
           { this.number('core', 'maxorphantx') }
           { this.number('core', 'maxmempool') }
@@ -61,7 +62,6 @@ class Editor extends Component {
           { this.number('core', 'prune') }
           { this.flag('core', 'reindex-chainstate') }
           { this.flag('core', 'reindex') }
-          { this.select('core', 'sandbox') }
           { this.text('core', 'settings') }
           { this.text('core', 'shutdownnotify') }
           { this.text('core', 'startupnotify') }
@@ -69,6 +69,7 @@ class Editor extends Component {
         </Section>
         <Section title={data.debug.section} description={data.debug.description}>
           { this.text('debug', 'uacomment') }
+          { this.flag('debug', 'acceptstalefeeestimates') }
           { this.flag('debug', 'addrmantest') }
           { this.flag('debug', 'capturemessages') }
           { this.number('debug', 'checkblocks') }
@@ -142,6 +143,7 @@ class Editor extends Component {
           { this.flag('network', 'networkactive') }
           { this.text('network', 'onion') }
           { this.select('network', 'onlynet') }
+          { this.flag('network', 'v2transport') }
           { this.flag('network', 'peerblockfilters') }
           { this.flag('network', 'peerbloomfilters') }
           { this.number('network', 'peertimeout') }
