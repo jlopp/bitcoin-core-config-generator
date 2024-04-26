@@ -175,6 +175,11 @@
       "description": "Save the mempool on shutdown and load on restart.",
       "default": 1
     },
+    "persistmempoolv1": {
+      "name": "Legacy Persist Mempool",
+      "description": "Use the pre-v27 format to save the mempool on shutdown and load on restart.",
+      "default": 0
+    },
     "blockreconstructionextratxn": {
       "name": "Block Reconstruction Transactions",
       "description": "Extra transactions to keep in memory for compact block reconstructions.",
@@ -451,6 +456,11 @@
       "name": "Log Level",
       "description": "Set the global or per-category severity level for logging in the format of either <level> or <category>:<level>. Level values may be: info, debug, or trace. Warning and error levels are always logged. If <category>:<level> is supplied, the setting will override the global one and may be specified multiple times. See 'debug' config for allowed category values.",
       "default": ""
+    },
+    "loglevelalways": {
+      "name": "Prepend Log Level",
+      "description": "Always prepend the category and level to each log message.",
+      "default": 0
     },
     "logsourcelocations": {
       "name": "Log Source Locations",
@@ -898,18 +908,6 @@
       "description": "Set the depth of the work queue to service RPC calls",
       "default": 16,
       "min": 1
-    },
-    "rpcserialversion": {
-      "name": "RPC Serialization",
-      "description": {
-        "0": "Return raw transaction or block hex with non-SegWit serialization.",
-        "1": "Return raw transaction or block hex with SegWit serialization."
-      },
-      "default": "1",
-      "values": [
-        "Non-SegWit [0]",
-        "SegWit [1]"
-      ]
     },
     "rpcservertimeout": {
       "name": "RPC Timeout",

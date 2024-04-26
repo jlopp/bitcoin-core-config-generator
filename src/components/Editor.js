@@ -55,6 +55,7 @@ class Editor extends Component {
           { this.number('core', 'maxmempool') }
           { this.number('core', 'mempoolexpiry') }
           { this.flag('core', 'persistmempool') }
+          { this.flag('core', 'persistmempoolv1') }
           { this.text('core', 'minimumchainwork') }
           { this.number('core', 'blockreconstructionextratxn') }
           { this.number('core', 'par') }
@@ -91,6 +92,7 @@ class Editor extends Component {
           { this.path('debug', 'debuglogfile', base, platform) }
           { this.flag('debug', 'logips') }
           { this.text('debug', 'loglevel') }
+          { this.flag('debug', 'loglevelalways') }
           { this.flag('debug', 'logsourcelocations') }
           { this.flag('debug', 'logthreadnames') }
           { this.flag('debug', 'logtimestamps') }
@@ -186,7 +188,6 @@ class Editor extends Component {
           { this.text('rpc', 'rpcwhitelist') }
           { this.number('rpc', 'rpcthreads') }
           { this.number('rpc', 'rpcworkqueue') }
-          { this.select('rpc', 'rpcserialversion') }
           { this.number('rpc', 'rpcservertimeout') }
         </Section>
         <Section title={data.wallet.section} description={data.wallet.description}>
