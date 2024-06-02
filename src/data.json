@@ -727,7 +727,7 @@
     "v2transport": {
       "name": "Support v2 Transport",
       "description": "Experimental support for the v2 transport protocol defined in BIP324.",
-      "default": 0
+      "default": 1
     },
     "peerblockfilters": {
       "name": "Permit Peer Block Filters",
