@@ -726,7 +726,7 @@
     },
     "v2transport": {
       "name": "Support v2 Transport",
-      "description": "Experimental support for the v2 transport protocol defined in BIP324.",
+      "description": "Support encrypted v2 transport protocol defined in BIP324.",
       "default": 1
     },
     "peerblockfilters": {
