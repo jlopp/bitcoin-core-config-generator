@@ -30,8 +30,13 @@
       ]
     },
     "testnet": {
-      "name": "Testnet",
-      "description": "Run this node on the Bitcoin Test Network. Equivalent to -chain=test",
+      "name": "Testnet 3",
+      "description": "Use the testnet3 chain. Equivalent to -chain=test. Support for testnet3 is deprecated and will be removed in an upcoming release. Consider moving to testnet4 now by using -testnet4.",
+      "default": 0
+    },
+    "testnet4": {
+      "name": "Testnet 4",
+      "description": "Use the testnet4 chain. Equivalent to -chain=testnet4.",
       "default": 0
     },
     "regtest": {
@@ -94,6 +99,11 @@
     "blocksonly": {
       "name": "Blocks Only Mode",
       "description": "Only download and relay blocks - ignore unconfirmed transaction",
+      "default": 0
+    },
+    "blocksxor": {
+      "name": "Block Data XOR",
+      "description": "Whether a XOR-key applies to blocksdir *.dat files. The created XOR-key will be zeros for an existing blocksdir or when `-blocksxor=0` is set, and random for a freshly initialized blocksdir.",
       "default": 0
     },
     "assumevalid": {
@@ -245,11 +255,6 @@
       "description": "Read fee estimates even if they are over 60 hours old. Regtest only.",
       "default": 0
     },
-    "addrmantest": {
-      "name": "Address Manager Test",
-      "description": "Allows you to test address relay on localhost.",
-      "default": 0
-    },
     "capturemessages": {
       "name": "Capture Messages",
       "description": "Capture all P2P messages to disk.",
@@ -335,6 +340,18 @@
       "description": "Do not accept transactions whose size with all in-mempool descendants exceeds <n> kilobytes.",
       "default": 101,
       "min": 0
+    },
+    "test": {
+      "name": "Test Options",
+      "description": {
+        "addrman": "Use Deterministic Address Manager",
+        "bip94": "Enforce BIP94 consensus rules"
+      },
+      "default": "",
+      "values": [
+        "Addrman [addrman]",
+        "BIP94 [bip94]"
+      ]
     },
     "debug": {
       "name": "Debug Logging",
@@ -687,12 +704,6 @@
       "default": 1000,
       "min": 100
     },
-    "maxtimeadjustment": {
-      "name": "Max Time Adjustment",
-      "description": "Maximum allowed median peer time offset adjustment in seconds. Local perspective of time may be influenced by peers forward or backward by this amount.",
-      "default": 4200,
-      "min": 0
-    },
     "natpmp": {
       "name": "NAT Port Mapping Protocol",
       "description": "Use NAT-PMP to map the listening port.",
@@ -705,7 +716,7 @@
     },
     "onion": {
       "name": "Tor Proxy",
-      "description": "Use separate SOCKS5 proxy <ip:port> to reach peers via Tor hidden services.",
+      "description": "Use separate SOCKS5 proxy <ip:port|path> to reach peers via Tor hidden services. May be a local file path prefixed with 'unix:'",
       "default": ""
     },
     "onlynet": {
@@ -752,7 +763,7 @@
     },
     "proxy": {
       "name": "Proxy Connection",
-      "description": "Connect through <ip:port> SOCKS5 proxy.",
+      "description": "Connect through <ip:port> SOCKS5 proxy. May be a local file path prefixed with 'unix:' if the proxy supports it.",
       "default": ""
     },
     "proxyrandomize": {
@@ -871,6 +882,21 @@
       "name": "RPC Cookie Directory",
       "description": "Location of the RPC auth cookie",
       "default": ".cookie"
+    },
+    "rpccookieperms": {
+      "name": "RPC Cookie Permissions",
+      "description": "Set permissions on the RPC auth cookie file so that it is readable by [owner|group|all]",
+      "description": {
+        "owner": "Owner",
+        "group": "Group",
+        "all": "All"
+      },
+      "default": "owner",
+      "values": [
+        "Owner [owner]",
+        "Group [group]",
+        "All [all]"
+      ]
     },
     "rpcauth": {
       "name": "RPC Auth",
@@ -1063,6 +1089,11 @@
       "name": "Private DB",
       "description": "Set the DB_PRIVATE flag in the wallet db environment.",
       "default": 1
+    },
+    "swapbdbendian": {
+      "name": "Swap BDB Endian",
+      "description": "Swaps the internal endianness of BDB wallet databases.",
+      "default": 0
     },
     "walletrejectlongchains": {
       "name": "Reject Long Transaction Chains",

@@ -27,8 +27,8 @@ class Editor extends Component {
     const base = settings.core.datadir !== '$BASE' ? settings.core.datadir : basePath(platform);
 
     // handle config dependencies here
-    if (settings.network.peerblockfilters === 1 && settings.core.blockfilterindex !== "1") {
-      settings.core.blockfilterindex = "1";
+    if (settings.network.peerblockfilters === 1 && settings.core.blockfilterindex !== '1') {
+      settings.core.blockfilterindex = '1';
     }
 
     return (
@@ -41,6 +41,7 @@ class Editor extends Component {
           { this.text('core', 'blocknotify') }
           { this.path('core', 'blocksdir', base, platform) }
           { this.flag('core', 'blocksonly') }
+          { this.number('core', 'blocksxor') }
           { this.text('core', 'assumevalid') }
           { this.flag('core', 'coinstatsindex') }
           { this.flag('core', 'daemon') }
@@ -71,7 +72,6 @@ class Editor extends Component {
         <Section title={data.debug.section} description={data.debug.description}>
           { this.text('debug', 'uacomment') }
           { this.flag('debug', 'acceptstalefeeestimates') }
-          { this.flag('debug', 'addrmantest') }
           { this.flag('debug', 'capturemessages') }
           { this.number('debug', 'checkblocks') }
           { this.number('debug', 'checklevel') }
@@ -87,6 +87,7 @@ class Editor extends Component {
           { this.number('debug', 'limitancestorsize') }
           { this.number('debug', 'limitdescendantcount') }
           { this.number('debug', 'limitdescendantsize') }
+          { this.select('debug', 'test') }
           { this.select('debug', 'debug') }
           { this.select('debug', 'debugexclude') }
           { this.path('debug', 'debuglogfile', base, platform) }
@@ -113,6 +114,7 @@ class Editor extends Component {
           { this.text('chain', 'signetchallenge') }
           { this.text('chain', 'signetseednode') }
           { this.flag('chain', 'testnet') }
+          { this.flag('chain', 'testnet4') }
           { this.text('chain', 'vbparams') }
         </Section>
         <Section title={data.mining.section} description={data.mining.description}>
@@ -140,7 +142,6 @@ class Editor extends Component {
           { this.number('network', 'maxconnections') }
           { this.number('network', 'maxreceivebuffer') }
           { this.number('network', 'maxsendbuffer') }
-          { this.number('network', 'maxtimeadjustment') }
           { this.flag('network', 'natpmp') }
           { this.flag('network', 'networkactive') }
           { this.text('network', 'onion') }
@@ -181,6 +182,7 @@ class Editor extends Component {
           { this.text('rpc', 'rpcbind') }
           { this.flag('rpc', 'rpcdoccheck') }
           { this.path('rpc', 'rpccookiefile', base, platform) }
+          { this.select('rpc', 'rpccookieperms') }
           { this.text('rpc', 'rpcauth') }
           { this.number('rpc', 'rpcport') }
           { this.text('rpc', 'rpcallowip') }
@@ -215,6 +217,7 @@ class Editor extends Component {
           { this.number('wallet', 'dblogsize') }
           { this.flag('wallet', 'flushwallet') }
           { this.flag('wallet', 'privdb') }
+          { this.flag('wallet', 'swapbdbendian') }
           { this.flag('wallet', 'walletrejectlongchains') }
           { this.flag('wallet', 'walletcrosschain') }
         </Section>
@@ -296,7 +299,7 @@ class Editor extends Component {
         description={description}
         disabled={!isEnabled}
         large
-        >
+      >
         {data[section][prop].values.map(val).map(value => {
           const id = `${configMode}_${section}_${prop}_${value.value}`;
 
@@ -309,7 +312,7 @@ class Editor extends Component {
                 checked={current.indexOf(value.value) !== -1}
                 disabled={!isEnabled}
                 onChange={change(value.value)}
-                />
+              />
               <span className='mdl-switch__label'>{value.name}</span>
             </label>
           );
@@ -430,7 +433,7 @@ class Editor extends Component {
         title={data[section][prop].name}
         description={description}
         disabled={!isEnabled}
-        >
+      >
         <label className='mdl-switch mdl-js-switch' htmlFor={id}>
           <input
             type='checkbox'
@@ -508,7 +511,7 @@ export function fillDescription (description, value, key) {
         }
       }
       // remove trailing comma
-      formatted = formatted.replace(/(,$)/g, "");
+      formatted = formatted.replace(/(,$)/g, '');
       return formatted;
     }
     // If there is a single value and it exists in the description mapping, return it

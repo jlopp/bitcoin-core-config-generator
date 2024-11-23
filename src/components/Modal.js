@@ -6,7 +6,6 @@ import 'dialog-polyfill/dialog-polyfill.css';
 import './Modal.css';
 
 class Modal extends Component {
-
   static propTypes = {
     isOpen: PropTypes.bool,
     title: PropTypes.string,

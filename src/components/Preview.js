@@ -114,7 +114,7 @@ function toConf (settings, defaults) {
       '',
       '# Options only for regtest',
       '[regtest]'
-      );
+    );
   }
 
   const { platform } = settings.__internal || defaults.__internal;
