@@ -583,7 +583,7 @@
     "mempoolfullrbf": {
       "name": "Mempool Full RBF",
       "description": "Accept transaction replace-by-fee without requiring replaceability signaling.",
-      "default": 0
+      "default": 1
     },
     "permitbaremultisig": {
       "name": "Permit Bare Multisig",
