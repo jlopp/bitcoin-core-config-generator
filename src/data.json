@@ -845,17 +845,13 @@
     "deprecatedrpc": {
       "name": "Enable Deprecated RPC Commands",
       "description": {
-        "accounts": "Enable Accounts RPC",
-        "addwitnessaddress": "Enable Add Witness Address RPC",
-        "signrawtransaction": "Enable Sign Raw Transaction RPC",
-        "validateaddress": "Enable Validate Address RPC"
+        "create_bdb": "Enable BDB Wallet Creation",
+        "warnings": "Warn When Deprecated RPC Used",
       },
       "default": [],
       "values": [
-        "Accounts [accounts]",
-        "Add Witness Address [addwitnessaddress]",
-        "Sign Raw Transaction [signrawtransaction]",
-        "Validate Address [validateaddress]"
+        "BDB Wallet [create_bdb]",
+        "Warnings [warnings]",
       ]
     },
     "server": {
