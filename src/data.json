@@ -846,12 +846,12 @@
       "name": "Enable Deprecated RPC Commands",
       "description": {
         "create_bdb": "Enable BDB Wallet Creation",
-        "warnings": "Warn When Deprecated RPC Used",
+        "warnings": "Warn When Deprecated RPC Used"
       },
       "default": [],
       "values": [
         "BDB Wallet [create_bdb]",
-        "Warnings [warnings]",
+        "Warnings [warnings]"
       ]
     },
     "server": {
