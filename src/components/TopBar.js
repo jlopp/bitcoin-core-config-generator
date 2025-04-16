@@ -4,7 +4,7 @@ function TopBar () {
   return (
     <div className='mdl-layout__header'>
       <div className='mdl-layout__header-row'>
-        <span className='mdl-layout-title'>Bitcoin Core Config Generator (compatible with Bitcoin Core 28.0)</span>
+        <span className='mdl-layout-title'>Bitcoin Core Config Generator (compatible with Bitcoin Core 29.0)</span>
         <div className='mdl-layout-spacer' />
       </div>
     </div>

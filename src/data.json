@@ -580,11 +580,6 @@
       "default": 83,
       "min": 1
     },
-    "mempoolfullrbf": {
-      "name": "Mempool Full RBF",
-      "description": "Accept transaction replace-by-fee without requiring replaceability signaling.",
-      "default": 1
-    },
     "permitbaremultisig": {
       "name": "Permit Bare Multisig",
       "description": "Relay non-P2SH multisig transactions.",
@@ -797,11 +792,6 @@
       "description": "Enable transaction reconciliations per BIP 330.",
       "default": 0
     },
-    "upnp": {
-      "name": "Universal Plug 'n Play",
-      "description": "Use UPnP to map the listening port.",
-      "default": 0
-    },
     "whitebind": {
       "name": "Whitelist Bound IP Address",
       "description": "Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6. Use [permissions]address for permissions. Allowed permissions are bloomfilter, noban, forcerelay, relay, and mempool. Specify multiple permissions separated by commas (default: noban,mempool,relay). Can be specified multiple times.",
@@ -833,6 +823,13 @@
       "default": 0.00001,
       "min": 0
     },
+    "blockreservedweight": {
+      "name": "Block Reserved Weight",
+      "description": "Set block weight reserved for block header and coinbase transaction.",
+      "default": 8000,
+      "min": 2000,
+      "max": 4000000
+    },
     "blockversion": {
       "name": "Block Version",
       "description": "Override block version to test forking scenarios.",
@@ -846,11 +843,13 @@
       "name": "Enable Deprecated RPC Commands",
       "description": {
         "create_bdb": "Enable BDB Wallet Creation",
+        "settxfee": "Set Transaction Fee",
         "warnings": "Warn When Deprecated RPC Used"
       },
       "default": [],
       "values": [
         "BDB Wallet [create_bdb]",
+        "Set Tx Fee [settxfee]",
         "Warnings [warnings]"
       ]
     },

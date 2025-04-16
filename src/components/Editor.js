@@ -120,6 +120,7 @@ class Editor extends Component {
         <Section title={data.mining.section} description={data.mining.description}>
           { this.number('mining', 'blockmaxweight') }
           { this.decimal('mining', 'blockmintxfee') }
+          { this.number('mining', 'blockreservedweight') }
           { this.text('mining', 'blockversion') }
         </Section>
         <Section title={data.network.section} description={data.network.description}>
@@ -158,7 +159,6 @@ class Editor extends Component {
           { this.text('network', 'torcontrol') }
           { this.text('network', 'torpassword') }
           { this.flag('network', 'txreconciliation') }
-          { this.flag('network', 'upnp') }
           { this.text('network', 'whitebind') }
           { this.text('network', 'whitelist') }
           { this.number('network', 'maxuploadtarget') }
@@ -170,7 +170,6 @@ class Editor extends Component {
           { this.number('relay', 'bytespersigop') }
           { this.flag('relay', 'datacarrier') }
           { this.number('relay', 'datacarriersize') }
-          { this.flag('relay', 'mempoolfullrbf') }
           { this.flag('relay', 'permitbaremultisig') }
           { this.decimal('relay', 'minrelaytxfee') }
           { this.flag('relay', 'whitelistrelay') }
