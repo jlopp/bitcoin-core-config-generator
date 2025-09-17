@@ -3,6 +3,8 @@
 }
 .preview-card.mdl-card {
   width: 100%;
+  position: sticky;
+  top: 0.5rem;
 }
 .preview-editor {
   width: 100%;
