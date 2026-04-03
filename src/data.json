@@ -20,13 +20,15 @@
       "description": {
         "main": "Main Network",
         "test": "Test Network.",
-        "regtest": "Regression Test Network"
+        "regtest": "Regression Test Network",
+        "signet": "Signed Test Network"
       },
       "default": "main",
       "values": [
         "Mainnet [main]",
         "Testnet [test]",
-        "Regtest [regtest]"
+        "Regtest [regtest]",
+        "Signet [signet]"
       ]
     },
     "testnet": {
@@ -395,7 +397,7 @@
         "Proxy [proxy]",
         "Pruning [prune]",
         "Random [rand]",
-        "Reinding [reindex]",
+        "Reindex [reindex]",
         "RPC [rpc]",
         "Coin Selection [selectcoins]",
         "Tor [tor]",
