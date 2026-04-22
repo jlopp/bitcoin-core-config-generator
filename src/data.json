@@ -142,7 +142,7 @@
     "dbcache": {
       "name": "DB Cache Size",
       "description": "Set database cache size in MB; machines sync faster with a larger cache. Recommend setting to 4000 if RAM is available.",
-      "default": 450,
+      "default": 1024,
       "min": 4
     },
     "includeconf": {
@@ -159,12 +159,6 @@
       "name": "Import Blocks From File",
       "description": "Imports blocks from external blk000??.dat file on startup. This option can be set multiple times with different file values.",
       "default": ""
-    },
-    "maxorphantx": {
-      "name": "Max Orphan Transactions",
-      "description": "Keep at most <n> unconnectable transactions in memory.",
-      "default": 100,
-      "min": 0
     },
     "maxmempool": {
       "name": "Max Mempool Size",
@@ -241,6 +235,11 @@
     "txindex": {
       "name": "Index Transactions",
       "description": "Maintain a full transaction index, used by the getrawtransaction rpc call.",
+      "default": 0
+    },
+    "txospenderindex": {
+      "name": "Index Transaction Output Spenders",
+      "description": "Create a transaction output spender index that will be scanned by gettxspendingprevout if a spending transaction was not found in the mempool.",
       "default": 0
     }
   },
@@ -320,9 +319,16 @@
       "default": 25,
       "min": 0
     },
-    "limitancestorsize": {
-      "name": "Limit Transaction Ancestor Size",
-      "description": "Do not accept transactions whose size with all in-mempool ancestors exceeds <n> kilobytes.",
+    "limitclustercount": {
+      "name": "Limit Cluster Count",
+      "description": "Do not accept transactions into mempool which are directly or indirectly connected to <n> or more other unconfirmed transactions.",
+      "default": 64,
+      "max": 64,
+      "min": 0
+    },
+    "limitclustersize": {
+      "name": "Limit Transaction Descendant Size",
+      "description": "Do not accept transactions whose virtual size with all in-mempool connected transactions exceeds <n> kilobytes.",
       "default": 101,
       "min": 0
     },
@@ -330,12 +336,6 @@
       "name": "Limit Transaction Descendant Count",
       "description": "Do not accept transactions if any ancestor would have <n> or more in-mempool descendants.",
       "default": 25,
-      "min": 0
-    },
-    "limitdescendantsize": {
-      "name": "Limit Transaction Descendant Size",
-      "description": "Do not accept transactions whose size with all in-mempool descendants exceeds <n> kilobytes.",
-      "default": 101,
       "min": 0
     },
     "test": {
@@ -483,7 +483,7 @@
     },
     "logsourcelocations": {
       "name": "Log Source Locations",
-      "description": "Prepend debug output with name of the originating source location (source file, line number and function name).",
+      "description": "Prepend debug output with name of the originating function.",
       "default": 0
     },
     "logthreadnames": {
@@ -590,8 +590,13 @@
     "minrelaytxfee": {
       "name": "Min Transaction Relay Fee",
       "description": "Fee rates (in BTC/kB) smaller than this are considered zero fee for relaying, mining and transaction creation.",
-      "default": 0.00001,
+      "default": 0.000001,
       "min": 0
+    },
+    "privatebroadcast": {
+      "name": "Private Transaction Broadcast",
+      "description": "Broadcast transactions submitted via sendrawtransaction RPC using short-lived connections through the Tor or I2P networks, without putting them in the mempool first. Transactions submitted through the wallet are not affected by this option.",
+      "default": 0
     },
     "whitelistrelay": {
       "name": "Whitelist Relay",
@@ -609,7 +614,7 @@
     },
     "asmap": {
       "name": "ASN Mapping",
-      "description": "Specify asn mapping used for bucketing of the peers. Relative paths will be prefixed by the net-specific datadir location.",
+      "description": "Specify asn mapping used for bucketing of the peers. Relative paths will be prefixed by the net-specific datadir location. If value is empty or set to 1, it will load the embedded asmap data.",
       "default": "$BASE/ip_asn.map"
     },
     "bantime": {
@@ -1015,11 +1020,6 @@
       "description": "Fee rates (in BTC/kB) smaller than this are considered zero fee for transaction creation",
       "default": 0.00001,
       "min": 0
-    },
-    "paytxfee": {
-      "name": "Pay Transaction Fee",
-      "description": "Fee rate (in BTC/kB) to add to transactions you send. Not recommended to set!",
-      "default": 0
     },
     "signer": {
       "name": "Signer Command",

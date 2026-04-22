@@ -52,7 +52,6 @@ class Editor extends Component {
           { this.text('core', 'includeconf') }
           { this.flag('core', 'allowignoredconf') }
           { this.text('core', 'loadblock') }
-          { this.number('core', 'maxorphantx') }
           { this.number('core', 'maxmempool') }
           { this.number('core', 'mempoolexpiry') }
           { this.flag('core', 'persistmempool') }
@@ -68,6 +67,7 @@ class Editor extends Component {
           { this.text('core', 'shutdownnotify') }
           { this.text('core', 'startupnotify') }
           { this.flag('core', 'txindex') }
+          { this.flag('core', 'txospenderindex') }
         </Section>
         <Section title={data.debug.section} description={data.debug.description}>
           { this.text('debug', 'uacomment') }
@@ -82,10 +82,10 @@ class Editor extends Component {
           { this.flag('debug', 'stopafterblockimport') }
           { this.number('debug', 'stopatheight') }
           { this.text('debug', 'testactivationheight') }
+          { this.number('debug', 'limitclustercount') }
+          { this.number('debug', 'limitclustersize') }
           { this.number('debug', 'limitancestorcount') }
-          { this.number('debug', 'limitancestorsize') }
           { this.number('debug', 'limitdescendantcount') }
-          { this.number('debug', 'limitdescendantsize') }
           { this.select('debug', 'test') }
           { this.select('debug', 'debug') }
           { this.select('debug', 'debugexclude') }
@@ -172,6 +172,7 @@ class Editor extends Component {
           { this.number('relay', 'datacarriersize') }
           { this.flag('relay', 'permitbaremultisig') }
           { this.decimal('relay', 'minrelaytxfee') }
+          { this.flag('relay', 'privatebroadcast') }
           { this.flag('relay', 'whitelistrelay') }
         </Section>
         <Section title={data.rpc.section} description={data.rpc.description}>
@@ -202,7 +203,6 @@ class Editor extends Component {
           { this.decimal('wallet', 'discardfee') }
           { this.decimal('wallet', 'maxapsfee') }
           { this.decimal('wallet', 'mintxfee') }
-          { this.decimal('wallet', 'paytxfee') }
           { this.text('wallet', 'signer') }
           { this.flag('wallet', 'spendzeroconfchange') }
           { this.text('wallet', 'rootcertificates') }
