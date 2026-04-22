@@ -37,5 +37,8 @@
     "addnode": "h2vlpudzphzqxutd.onion",
     "torcontrol": "127.0.0.1:9051",
     "torpassword": ""
+  },
+  "relay": {
+    "privatebroadcast": 1
   }
 }
