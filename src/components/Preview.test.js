@@ -1,7 +1,6 @@
 /* global it */
-
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { act } from 'react';
+import { createRoot } from 'react-dom/client';
 import Preview from './Preview';
 
 it('renders without crashing', () => {
@@ -11,5 +10,7 @@ it('renders without crashing', () => {
       platform: 'Linux'
     }
   };
-  ReactDOM.render(<Preview settings={{}} defaults={defaults} />, div);
+  act(() => {
+    createRoot(div).render(<Preview settings={{}} defaults={defaults} />);
+  });
 });

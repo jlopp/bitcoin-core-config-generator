@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const heightStyle = {height: '100%'};
+const heightStyle = { height: '100%' };
 
-function Item ({title, description, children, disabled, large}) {
+function Item ({ title, description, children, disabled, large }) {
   const isDisabled = disabled ? 'disabled' : '';
   return (
     <li

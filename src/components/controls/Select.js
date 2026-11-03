@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-function Select ({value, onChange, values, id, disabled}) {
+function Select ({ value, onChange, values, id, disabled }) {
   const selected = values.find(val => val.value === value) || {};
 
   // We cannot just remove options, since mdl is adding some additional dom nodes.
@@ -13,7 +13,7 @@ function Select ({value, onChange, values, id, disabled}) {
       style={disabled ? { display: 'none' } : {}}
     >
       {
-        values.map(({name, value}) => (
+        values.map(({ name, value }) => (
           <li className='mdl-menu__item' data-val={value} key={value} onClick={() => onChange(value)}>{name}</li>
         ))
       }
