@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
-import dialogPolyfill from 'dialog-polyfill/dialog-polyfill.js';
-import 'dialog-polyfill/dialog-polyfill.css';
+import dialogPolyfill from 'dialog-polyfill';
+import 'dialog-polyfill/dist/dialog-polyfill.css';
 import './Modal.css';
 
 class Modal extends Component {
@@ -13,16 +12,21 @@ class Modal extends Component {
     children: PropTypes.object
   };
 
+  constructor (props) {
+    super(props);
+    this.dialogRef = React.createRef();
+  }
+
   close () {
-    ReactDOM.findDOMNode(this).close();
+    this.dialogRef.current.close();
   }
 
   show () {
-    ReactDOM.findDOMNode(this).showModal();
+    this.dialogRef.current.showModal();
   }
 
   componentDidMount () {
-    const dialog = ReactDOM.findDOMNode(this);
+    const dialog = this.dialogRef.current;
     if (!dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);
     }
@@ -43,7 +47,7 @@ class Modal extends Component {
 
   render () {
     return (
-      <dialog className='mdl-dialog'>
+      <dialog className='mdl-dialog' ref={this.dialogRef}>
         <h4 className='mdl-dialog__title'>{this.props.title}</h4>
         <div className='mdl-dialog__content'>
           {this.props.children}

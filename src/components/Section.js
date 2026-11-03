@@ -23,7 +23,7 @@ class Section extends Component {
     };
   }
 
-  componentWillReceiveProps (newProps) {
+  UNSAFE_componentWillReceiveProps (newProps) {
     if (this.props.collapsed !== newProps.collapsed) {
       this.setState({
         collapsed: newProps.collapsed
@@ -31,24 +31,26 @@ class Section extends Component {
     }
   }
 
-  toggleCollapsed = () => {
+  handleToggleCollapsed = () => {
     this.setState({
       collapsed: !this.state.collapsed
     });
   };
 
   render () {
-    const {title, description, children} = this.props;
-    const {collapsed} = this.state;
+    const { title, description, children } = this.props;
+    const { collapsed } = this.state;
     return (
       <div className='section'>
-        <h5 onClick={this.toggleCollapsed} style={{cursor: 'pointer'}}>
+        <h5 onClick={this.handleToggleCollapsed} style={{ cursor: 'pointer' }}>
           <button className='mdl-button mdl-js-button mdl-button--icon'>
-            {collapsed ? (
-              <i className='material-icons'>expand_more</i>
-            ) : (
-              <i className='material-icons'>expand_less</i>
-            )}
+            {collapsed
+              ? (
+                <i className='material-icons'>expand_more</i>
+                )
+              : (
+                <i className='material-icons'>expand_less</i>
+                )}
           </button>
           {title}
         </h5>

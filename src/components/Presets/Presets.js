@@ -38,15 +38,15 @@ function mix (a, b) {
 }
 
 const presets = {
-  'Defaults': {},
-  'Mining': mining,
+  Defaults: {},
+  Mining: mining,
   'Non-standard Ports': ports,
   'Low Bandwidth': bandwidth,
   'Low Disk Usage': pruned,
   'Raspberry Pi': pi,
-  'Privacy': tor,
-  'Testnet': testnet,
-  'Regtest': regtest,
+  Privacy: tor,
+  Testnet: testnet,
+  Regtest: regtest,
   'Non-syncing': nosync,
   'Lightning-eclair': lightningeclair
 };
@@ -62,7 +62,7 @@ class Presets extends Component {
     preset: 'Defaults'
   };
 
-  change = (preset) => {
+  handleChange = (preset) => {
     if (!window.confirm('Do you want to overwrite current config?')) {
       this.forceUpdate();
       return;
@@ -73,16 +73,16 @@ class Presets extends Component {
   };
 
   render () {
-    const {preset} = this.props;
+    const { preset } = this.props;
 
     return (
       <div className='presets'>
-        <Item title={''} description={'Load predefined config.'}>
+        <Item title='' description='Load predefined config.'>
           <Select
-            onChange={this.change}
+            onChange={this.handleChange}
             value={preset}
             values={Object.keys(presets).map(toVal)}
-            id={'presets'}
+            id='presets'
             disabled={false}
           />
         </Item>

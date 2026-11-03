@@ -6,7 +6,7 @@ import './Preview.css';
 import { joinPath, basePath } from '../system';
 import data from '../data.json';
 // TODO [ToDr] move to some common?
-import {fillDescription} from './Editor';
+import { fillDescription } from './Editor';
 
 class Preview extends Component {
   static propTypes = {
@@ -14,11 +14,11 @@ class Preview extends Component {
     defaults: PropTypes.object.isRequired
   };
 
-  generateConfig = () => {
-    const {settings, defaults} = this.props;
+  handleGenerateConfig = () => {
+    const { settings, defaults } = this.props;
     const data = toConf(settings, defaults);
     const filename = 'bitcoin.conf';
-    const blob = new Blob([data], {type: 'text/plain'});
+    const blob = new Blob([data], { type: 'text/plain' });
     if (window.navigator.msSaveOrOpenBlob) {
       window.navigator.msSaveBlob(blob, filename);
     } else {
@@ -29,10 +29,10 @@ class Preview extends Component {
       elem.click();
       document.body.removeChild(elem);
     }
-  }
+  };
 
   render () {
-    const {settings, defaults} = this.props;
+    const { settings, defaults } = this.props;
     return (
       <div className='mdl-card mdl-shadow--2dp preview-card'>
         <div className='mdl-card__title'>
@@ -47,13 +47,15 @@ class Preview extends Component {
           <a
             className='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-efect'
             target='_blank'
-            href={window.location.toString()}>
+            href={window.location.toString()} rel='noreferrer'
+          >
             <i className='material-icons' id='link'>link</i>
             <span className='mdl-tooltip' htmlFor='link'>Link to this Config File</span>
           </a>
           <button
             className='mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-efect'
-            onClick={this.generateConfig}>
+            onClick={this.handleGenerateConfig}
+          >
             <i className='material-icons' id='download'>cloud download</i>
             <span className='mdl-tooltip' htmlFor='download'>Download Config File</span>
           </button>
@@ -141,7 +143,7 @@ function toComment (settings, section, key, value) {
     if (value === undefined || value.length === 0) {
       return;
     }
-    var description = fillDescription(data[section][key].description, value);
+    let description = fillDescription(data[section][key].description, value);
     // add a # after each newline except the last
     description = description.replace(/(\n)/gm, '\n# ');
     return description;
@@ -160,8 +162,8 @@ function toLine (key, val) {
 
   // multi-select values should each get their own line in the conf file
   if (Array.isArray(val)) {
-    var formatted = '';
-    for (var i in val) {
+    let formatted = '';
+    for (const i in val) {
       if ({}.hasOwnProperty.call(val, i)) {
         formatted += toLine(key, val[i]) + '\n';
       }
