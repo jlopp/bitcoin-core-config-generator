@@ -59,6 +59,7 @@ class Editor extends Component {
           { this.text('core', 'minimumchainwork') }
           { this.number('core', 'blockreconstructionextratxn') }
           { this.number('core', 'par') }
+          { this.number('core', 'prevoutfetchthreads') }
           { this.text('core', 'pid') }
           { this.number('core', 'prune') }
           { this.flag('core', 'reindex-chainstate') }
@@ -74,6 +75,7 @@ class Editor extends Component {
           { this.flag('debug', 'acceptstalefeeestimates') }
           { this.flag('debug', 'capturemessages') }
           { this.number('debug', 'checkblocks') }
+          { this.number('debug', 'checkblockindex') }
           { this.number('debug', 'checklevel') }
           { this.number('debug', 'checkaddrman') }
           { this.number('debug', 'checkmempool') }
@@ -104,7 +106,6 @@ class Editor extends Component {
           { this.decimal('debug', 'maxtxfee') }
           { this.flag('debug', 'printtoconsole') }
           { this.flag('debug', 'printpriority') }
-          { this.text('debug', 'promiscuousmempoolflags') }
           { this.flag('debug', 'shrinkdebugfile') }
         </Section>
         <Section title={data.chain.section} description={data.chain.description}>
@@ -136,6 +137,7 @@ class Editor extends Component {
           { this.text('network', 'externalip') }
           { this.flag('network', 'fixedseeds') }
           { this.flag('network', 'forcednsseed') }
+          { this.number('network', 'inboundrelaypercent') }
           { this.flag('network', 'i2pacceptincoming') }
           { this.text('network', 'i2psam') }
           { this.flag('network', 'listen') }
@@ -159,6 +161,7 @@ class Editor extends Component {
           { this.text('network', 'torcontrol') }
           { this.text('network', 'torpassword') }
           { this.flag('network', 'txreconciliation') }
+          { this.number('network', 'txsendrate') }
           { this.text('network', 'whitebind') }
           { this.text('network', 'whitelist') }
           { this.number('network', 'maxuploadtarget') }
@@ -173,6 +176,7 @@ class Editor extends Component {
           { this.flag('relay', 'permitbaremultisig') }
           { this.decimal('relay', 'minrelaytxfee') }
           { this.flag('relay', 'privatebroadcast') }
+          { this.flag('relay', 'whitelistforcerelay') }
           { this.flag('relay', 'whitelistrelay') }
         </Section>
         <Section title={data.rpc.section} description={data.rpc.description}>
@@ -189,6 +193,7 @@ class Editor extends Component {
           { this.flag('rpc', 'rpcwhitelistdefault') }
           { this.text('rpc', 'rpcwhitelist') }
           { this.number('rpc', 'rpcthreads') }
+          { this.number('rpc', 'rpcmaxconnections') }
           { this.number('rpc', 'rpcworkqueue') }
           { this.number('rpc', 'rpcservertimeout') }
         </Section>
@@ -205,7 +210,6 @@ class Editor extends Component {
           { this.decimal('wallet', 'mintxfee') }
           { this.text('wallet', 'signer') }
           { this.flag('wallet', 'spendzeroconfchange') }
-          { this.text('wallet', 'rootcertificates') }
           { this.number('wallet', 'txconfirmtarget') }
           { this.flag('wallet', 'unsafesqlitesync') }
           { this.flag('wallet', 'walletrbf') }

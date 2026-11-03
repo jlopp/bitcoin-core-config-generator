@@ -1,7 +1,6 @@
 {
   "core": {
     "dbcache": 4000,
-    "maxorphantx": 1000,
     "maxmempool": 1000,
     "blockreconstructionextratxn": 1000
   },

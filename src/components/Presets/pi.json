@@ -1,7 +1,6 @@
 {
   "core": {
     "dbcache": 100,
-    "maxorphantx": 10,
     "maxmempool": 50
   },
   "network": {

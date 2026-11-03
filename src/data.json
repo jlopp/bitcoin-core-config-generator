@@ -106,7 +106,7 @@
     "blocksxor": {
       "name": "Block Data XOR",
       "description": "Whether a XOR-key applies to blocksdir *.dat files. The created XOR-key will be zeros for an existing blocksdir or when `-blocksxor=0` is set, and random for a freshly initialized blocksdir.",
-      "default": 0
+      "default": 1
     },
     "assumevalid": {
       "name": "Assume Valid Chain History",
@@ -136,7 +136,7 @@
     "dbbatchsize": {
       "name": "DB Batch Size",
       "description": "Maximum database write batch size in bytes.",
-      "default": 16777216,
+      "default": 33554432,
       "min": 1024
     },
     "dbcache": {
@@ -174,7 +174,7 @@
     "minimumchainwork": {
       "name": "Minimum Chain Work",
       "description": "The (hex value) minimum amount of cumulative proof of work required.",
-      "default": "0x000000000000000000000000000000000000000000f91c579d57cad4bc5278cc"
+      "default": "0x000000000000000000000000000000000000000145ec036acc5ba740052af1a0"
     },
     "persistmempool": {
       "name": "Persist Mempool",
@@ -193,8 +193,15 @@
     },
     "par": {
       "name": "Script Verification Parallelization",
-      "description": "Set the number of script verification threads. (1 to CPU_CORES, 0 = automatic, less than 0 = leave that many cores free).",
+      "description": "Set the number of script verification threads. (0 = automatic, up to 15, less than 0 = leave that many cores free).",
       "default": 0
+    },
+    "prevoutfetchthreads": {
+      "name": "Prevout Fetch Threads",
+      "description": "Set the number of threads used to prefetch block input prevouts from the chainstate database, which can speed up validation. (0 disables, up to 16)",
+      "default": 8,
+      "min": 0,
+      "max": 16
     },
     "pid": {
       "name": "PID file",
@@ -203,7 +210,7 @@
     },
     "prune": {
       "name": "Prune Old Blocks",
-      "description": "Reduce storage requirements by only storing most recent N MiB of block. This mode is incompatible with -txindex and -coinstatsindex. WARNING: Reverting this setting requires re-downloading the entire blockchain. (default: 0 = disable pruning blocks, 1 = allow manual pruning via RPC, greater than 550 = automatically prune blocks to stay under target size in MiB).",
+      "description": "Reduce storage requirements by only storing most recent N MiB of block. This mode is incompatible with -txindex. WARNING: Reverting this setting requires re-downloading the entire blockchain. (default: 0 = disable pruning blocks, 1 = allow manual pruning via RPC, greater than 550 = automatically prune blocks to stay under target size in MiB).",
       "default": 0,
       "min": 0
     },
@@ -267,6 +274,12 @@
       "default": 6,
       "min": 0
     },
+    "checkblockindex": {
+      "name": "Check Block Index",
+      "description": "Run a consistency check for the block tree, chainstate, and other validation data structures every <n> operations. Use 0 to disable.",
+      "default": 0,
+      "min": 0
+    },
     "checklevel": {
       "name": "Check Block Level",
       "description": "How thorough the block verification of -checkblocks is (0-4).",
@@ -315,7 +328,7 @@
     },
     "limitancestorcount": {
       "name": "Limit Transaction Ancestor Count",
-      "description": "Do not accept transactions if number of in-mempool ancestors is <n> or more.",
+      "description": "Deprecated setting to not accept transactions if number of in-mempool ancestors is <n> or more; replaced by cluster limits (see Limit Cluster Count) and only used by the wallet for coin selection.",
       "default": 25,
       "min": 0
     },
@@ -334,7 +347,7 @@
     },
     "limitdescendantcount": {
       "name": "Limit Transaction Descendant Count",
-      "description": "Do not accept transactions if any ancestor would have <n> or more in-mempool descendants.",
+      "description": "Deprecated setting to not accept transactions if any ancestor would have <n> or more in-mempool descendants; replaced by cluster limits (see Limit Cluster Count) and only used by the wallet for coin selection.",
       "default": 25,
       "min": 0
     },
@@ -342,12 +355,14 @@
       "name": "Test Options",
       "description": {
         "addrman": "Use Deterministic Address Manager",
-        "bip94": "Enforce BIP94 consensus rules"
+        "bip94": "Enforce BIP94 consensus rules",
+        "reindex_after_failure_noninteractive_yes": "When asked for a reindex after failure interactively, simulate as-if answered with 'yes'"
       },
       "default": "",
       "values": [
         "Addrman [addrman]",
-        "BIP94 [bip94]"
+        "BIP94 [bip94]",
+        "Reindex After Failure Noninteractive Yes [reindex_after_failure_noninteractive_yes]"
       ]
     },
     "debug": {
@@ -356,25 +371,34 @@
         "0": "Disable debug logging.",
         "1": "Enable debug logging for all categories.",
         "addrman": "Enable address manager logging.",
-        "alert": "Enable alert logging",
         "bench": "Enable benchmark logging",
+        "blockstorage": "Enable block storage logging",
         "cmpctblock": "Enable compact block logging",
         "coindb": "Enable coin database logging",
-        "walletdb": "Enable wallet database logging",
+        "estimatefee": "Enable fee estimation logging",
         "http": "Enable HTTP logging",
+        "i2p": "Enable I2P logging",
+        "ipc": "Enable IPC logging",
+        "kernel": "Enable kernel logging",
         "leveldb": "Enable leveldb logging",
-        "libevent": "Enable libevent logging",
-        "lock": "Enable lock logging",
         "mempool": "Enable mempool logging",
         "mempoolrej": "Enable mempool rejection logging",
+        "mining": "Enable mining logging",
         "net": "Enable network logging",
+        "privatebroadcast": "Enable private broadcast logging",
         "proxy": "Enable proxy logging",
         "prune": "Enable pruning logging",
+        "qt": "Enable Qt logging",
         "rand": "Enable randomness logging",
         "reindex": "Enable reindexing logging",
         "rpc": "Enable RPC logging",
+        "scan": "Enable scan logging",
         "selectcoins": "Enable coin selection logging",
         "tor": "Enable Tor logging",
+        "txpackages": "Enable transaction packages logging",
+        "txreconciliation": "Enable transaction reconciliation logging",
+        "validation": "Enable validation logging",
+        "walletdb": "Enable wallet database logging",
         "zmq": "Enable ZeroMQ logging"
       },
       "default": "0",
@@ -382,25 +406,34 @@
         "Disable [0]",
         "Enable All [1]",
         "Address Manager [addrman]",
-        "Alerts [alert]",
         "Benchmarking [bench]",
+        "Block Storage [blockstorage]",
         "Compact Blocks [cmpctblock]",
         "CoinDB [coindb]",
-        "Database [db]",
+        "Fee Estimation [estimatefee]",
         "HTTP [http]",
+        "I2P [i2p]",
+        "IPC [ipc]",
+        "Kernel [kernel]",
         "LevelDB [leveldb]",
-        "LibEvent [libevent]",
-        "Locking [lock]",
         "Mempool [mempool]",
         "Mempool Rejection [mempoolrej]",
+        "Mining [mining]",
         "Networking [net]",
+        "Private Broadcast [privatebroadcast]",
         "Proxy [proxy]",
         "Pruning [prune]",
+        "Qt [qt]",
         "Random [rand]",
         "Reindex [reindex]",
         "RPC [rpc]",
+        "Scan [scan]",
         "Coin Selection [selectcoins]",
         "Tor [tor]",
+        "Transaction Packages [txpackages]",
+        "Transaction Reconciliation [txreconciliation]",
+        "Validation [validation]",
+        "Wallet Database [walletdb]",
         "ZeroMQ [zmq]"
       ]
     },
@@ -409,50 +442,68 @@
       "description": {
         "0": "Don't exclude any logging.",
         "addrman": "Exclude address manager logging.",
-        "alert": "Exclude alert logging",
         "bench": "Exclude benchmark logging",
+        "blockstorage": "Exclude block storage logging",
         "cmpctblock": "Exclude compact block logging",
         "coindb": "Exclude coin database logging",
-        "db": "Exclude database logging",
+        "estimatefee": "Exclude fee estimation logging",
         "http": "Exclude HTTP logging",
+        "i2p": "Exclude I2P logging",
+        "ipc": "Exclude IPC logging",
+        "kernel": "Exclude kernel logging",
         "leveldb": "Exclude leveldb logging",
-        "libevent": "Exclude libevent logging",
-        "lock": "Exclude lock logging",
         "mempool": "Exclude mempool logging",
         "mempoolrej": "Exclude mempool rejection logging",
+        "mining": "Exclude mining logging",
         "net": "Exclude network logging",
+        "privatebroadcast": "Exclude private broadcast logging",
         "proxy": "Exclude proxy logging",
         "prune": "Exclude pruning logging",
+        "qt": "Exclude Qt logging",
         "rand": "Exclude randomness logging",
         "reindex": "Exclude reindexing logging",
         "rpc": "Exclude RPC logging",
+        "scan": "Exclude scan logging",
         "selectcoins": "Exclude coin selection logging",
         "tor": "Exclude Tor logging",
+        "txpackages": "Exclude transaction packages logging",
+        "txreconciliation": "Exclude transaction reconciliation logging",
+        "validation": "Exclude validation logging",
+        "walletdb": "Exclude wallet database logging",
         "zmq": "Exclude ZeroMQ logging"
       },
       "default": "0",
       "values": [
         "No Exclusions [0]",
         "Address Manager [addrman]",
-        "Alerts [alert]",
         "Benchmarking [bench]",
+        "Block Storage [blockstorage]",
         "Compact Blocks [cmpctblock]",
         "CoinDB [coindb]",
-        "Database [db]",
+        "Fee Estimation [estimatefee]",
         "HTTP [http]",
+        "I2P [i2p]",
+        "IPC [ipc]",
+        "Kernel [kernel]",
         "LevelDB [leveldb]",
-        "LibEvent [libevent]",
-        "Locking [lock]",
         "Mempool [mempool]",
         "Mempool Rejection [mempoolrej]",
+        "Mining [mining]",
         "Networking [net]",
+        "Private Broadcast [privatebroadcast]",
         "Proxy [proxy]",
         "Pruning [prune]",
+        "Qt [qt]",
         "Random [rand]",
-        "Reinding [reindex]",
+        "Reindex [reindex]",
         "RPC [rpc]",
+        "Scan [scan]",
         "Coin Selection [selectcoins]",
         "Tor [tor]",
+        "Transaction Packages [txpackages]",
+        "Transaction Reconciliation [txreconciliation]",
+        "Validation [validation]",
+        "Wallet Database [walletdb]",
         "ZeroMQ [zmq]"
       ]
     },
@@ -520,7 +571,7 @@
     },
     "maxtxfee": {
       "name": "Max Transaction Fee",
-      "description": "Maximum total fees (in BTC) to use in a single wallet transaction or raw transaction; setting this too low may abort large transactions.",
+      "description": "Maximum total fees (in BTC) to use in a single wallet transaction; setting this too low may abort large transactions.",
       "default": 0.1,
       "min": 0
     },
@@ -533,11 +584,6 @@
       "name": "Print Priority",
       "description": "Log transaction fee per kB when mining blocks.",
       "default": 0
-    },
-    "promiscuousmempoolflags": {
-      "name": "Script Verification Flags",
-      "description": "Integer representing the script verification flags to enable (all ORed together) - flags can be found in interpreter.h.",
-      "default": ""
     },
     "shrinkdebugfile": {
       "name": "Shrink Debug Log File",
@@ -556,13 +602,13 @@
     "incrementalrelayfee": {
       "name": "Incremental Relay Fee",
       "description": "Fee rate (in BTC/kB) used to define cost of relay, used for mempool limiting and BIP 125 replacement.",
-      "default": 0.00001,
+      "default": 0.000001,
       "min": 0
     },
     "dustrelayfee": {
       "name": "Dust Relay Fee",
-      "description": "Fee rate (in BTC/kB) used to defined dust, the value of an output such that it will cost about 1/3 of its value in fees at this fee rate to spend it.",
-      "default": 0.00001,
+      "description": "Fee rate (in BTC/kB) used to define dust, the value of an output such that it will cost more than its value in fees at this fee rate to spend it.",
+      "default": 0.00003,
       "min": 0
     },
     "bytespersigop": {
@@ -596,6 +642,11 @@
     "privatebroadcast": {
       "name": "Private Transaction Broadcast",
       "description": "Broadcast transactions submitted via sendrawtransaction RPC using short-lived connections through the Tor or I2P networks, without putting them in the mempool first. Transactions submitted through the wallet are not affected by this option.",
+      "default": 0
+    },
+    "whitelistforcerelay": {
+      "name": "Whitelist Force Relay",
+      "description": "Add 'forcerelay' permission to whitelisted peers with default permissions. This will relay transactions even if the transactions were already in the mempool.",
       "default": 0
     },
     "whitelistrelay": {
@@ -689,10 +740,10 @@
     },
     "maxconnections": {
       "name": "Max Peer Connections",
-      "description": "Maintain at most N connections to peers.",
-      "default": 125,
+      "description": "Maintain at most N automatic connections to peers. 11 slots are reserved for outgoing connections, and the percent of inbound connections allowed to relay transactions is limited by the Inbound Relay Percent option.",
+      "default": 200,
       "min": 0,
-      "max": 250
+      "max": 2000
     },
     "maxreceivebuffer": {
       "name": "Max Receive Buffer",
@@ -708,8 +759,15 @@
     },
     "natpmp": {
       "name": "NAT Port Mapping Protocol",
-      "description": "Use NAT-PMP to map the listening port.",
-      "default": 0
+      "description": "Use PCP or NAT-PMP to map the listening port.",
+      "default": 1
+    },
+    "inboundrelaypercent": {
+      "name": "Inbound Relay Percent",
+      "description": "Permit a maximum percent of inbound connections to relay transactions, to limit memory utilization (0 to 100).",
+      "default": 50,
+      "min": 0,
+      "max": 100
     },
     "networkactive": {
       "name": "Network Active",
@@ -727,14 +785,18 @@
         "any": "Use every available network",
         "ipv4": "Only connect to peers via IPV4",
         "ipv6": "Only connect to peers via IPV6.",
-        "onion": "Only connect to peers via Tor."
+        "onion": "Only connect to peers via Tor.",
+        "i2p": "Only connect to peers via I2P.",
+        "cjdns": "Only connect to peers via CJDNS."
       },
       "default": "any",
       "values": [
         "Any [any]",
         "IPV4 [ipv4]",
         "IPV6 [ipv6]",
-        "Tor [onion]"
+        "Tor [onion]",
+        "I2P [i2p]",
+        "CJDNS [cjdns]"
       ]
     },
     "v2transport": {
@@ -799,9 +861,15 @@
       "description": "Enable transaction reconciliations per BIP 330.",
       "default": 0
     },
+    "txsendrate": {
+      "name": "Transaction Send Rate",
+      "description": "Set the maximum ongoing rate for sending transactions to (inbound) peers, in transactions per second.",
+      "default": 14,
+      "min": 1
+    },
     "whitebind": {
       "name": "Whitelist Bound IP Address",
-      "description": "Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6. Use [permissions]address for permissions. Allowed permissions are bloomfilter, noban, forcerelay, relay, and mempool. Specify multiple permissions separated by commas (default: noban,mempool,relay). Can be specified multiple times.",
+      "description": "Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6. Use [permissions]address for permissions. Allowed permissions are bloomfilter, noban, forcerelay, relay, mempool, download, and addr. Specify multiple permissions separated by commas (default: download,noban,mempool,relay). Can be specified multiple times.",
       "default": ""
     },
     "whitelist": {
@@ -822,12 +890,12 @@
     "blockmaxweight": {
       "name": "Max Block Weight",
       "description": "Set maximum BIP141 block weight.",
-      "default": 3000000
+      "default": 4000000
     },
     "blockmintxfee": {
       "name": "Block Min Transaction Fee",
       "description": "Set lowest fee rate (in BTC/kB) for transactions to be included in block creation.",
-      "default": 0.00001,
+      "default": 0.00000001,
       "min": 0
     },
     "blockreservedweight": {
@@ -849,14 +917,16 @@
     "deprecatedrpc": {
       "name": "Enable Deprecated RPC Commands",
       "description": {
-        "create_bdb": "Enable BDB Wallet Creation",
-        "settxfee": "Set Transaction Fee",
-        "warnings": "Warn When Deprecated RPC Used"
+        "bip125": "Return the deprecated bip125-replaceable key in mempool and wallet RPCs",
+        "fullrbf": "Return the deprecated fullrbf key in getmempoolinfo",
+        "removeprunedfunds": "Allow the deprecated removeprunedfunds RPC",
+        "warnings": "Return the latest warning as a single string instead of an array"
       },
       "default": [],
       "values": [
-        "BDB Wallet [create_bdb]",
-        "Set Tx Fee [settxfee]",
+        "BIP125 Replaceable [bip125]",
+        "Full RBF [fullrbf]",
+        "Remove Pruned Funds [removeprunedfunds]",
         "Warnings [warnings]"
       ]
     },
@@ -928,13 +998,19 @@
     "rpcthreads": {
       "name": "RPC Threads",
       "description": "Set the number of threads to service RPC calls",
-      "default": 4,
+      "default": 16,
+      "min": 1
+    },
+    "rpcmaxconnections": {
+      "name": "Max RPC Connections",
+      "description": "The maximum number of simultaneously connected HTTP clients.",
+      "default": 16,
       "min": 1
     },
     "rpcworkqueue": {
       "name": "RPC Work Queue Size",
       "description": "Set the depth of the work queue to service RPC calls",
-      "default": 16,
+      "default": 64,
       "min": 1
     },
     "rpcservertimeout": {
@@ -952,13 +1028,15 @@
       "description": {
         "legacy": "Legacy",
         "p2sh-segwit": "P2SH Wrapped SegWit",
-        "bech32": "Bech32"
+        "bech32": "Bech32",
+        "bech32m": "Bech32m (Taproot)"
       },
-      "default": "p2sh-segwit",
+      "default": "bech32",
       "values": [
         "Legacy [legacy]",
         "P2SH Wrapped SegWit [p2sh-segwit]",
-        "Bech32 [bech32]"
+        "Bech32 [bech32]",
+        "Bech32m [bech32m]"
       ]
     },
     "avoidpartialspends": {
@@ -971,13 +1049,15 @@
       "description": {
         "legacy": "Legacy",
         "p2sh-segwit": "P2SH Wrapped SegWit",
-        "bech32": "Bech32"
+        "bech32": "Bech32",
+        "bech32m": "Bech32m (Taproot)"
       },
       "default": "p2sh-segwit",
       "values": [
         "Legacy [legacy]",
         "P2SH Wrapped SegWit [p2sh-segwit]",
-        "Bech32 [bech32]"
+        "Bech32 [bech32]",
+        "Bech32m [bech32m]"
       ]
     },
     "consolidatefeerate": {
@@ -999,8 +1079,8 @@
     },
     "fallbackfee": {
       "name": "Fallback Transaction Fee",
-      "description": "A fee rate (in BTC/kB) that will be used when fee estimation has insufficient data",
-      "default": 0.0002,
+      "description": "A fee rate (in BTC/kB) that will be used when fee estimation has insufficient data. Set to 0 to entirely disable the fallbackfee feature.",
+      "default": 0,
       "min": 0
     },
     "discardfee": {
@@ -1030,14 +1110,9 @@
       "description": "Spend unconfirmed change when sending transactions.",
       "default": 1
     },
-    "rootcertificates": {
-      "name": "Root Certificate file",
-      "description": "Specify a custom root certificate to trust for payment requests. Delete value to disable trusting root certificates.",
-      "default": "-system-"
-    },
     "txconfirmtarget": {
       "name": "Transaction Fee Confirmation Target",
-      "description": "If paytxfee is not set, include enough fee so that transactions should confirm within <n> blocks",
+      "description": "Include enough fee so that transactions should begin confirmation on average within <n> blocks.",
       "default": 6,
       "min": 2,
       "max": 25
@@ -1049,7 +1124,7 @@
     },
     "walletrbf": {
       "name": "Enable Replace By Fee Transactions",
-      "description": "Send transactions with full-RBF opt-in enabled.",
+      "description": "Send transactions with full-RBF opt-in enabled. Deprecated; this option will be removed in a future release.",
       "default": 1
     },
     "wallet": {
